@@ -29,6 +29,15 @@ private slots:
     void on_pushButtonSend_clicked();
     void on_pushButton_2Ok_clicked();
 
+    void on_play11();
+    void on_play12();
+    void on_play13();
+    void on_play21();
+    void on_play22();
+    void on_play23();
+    void on_play31();
+    void on_play32();
+    void on_play33();
 private:
     void envoyerServer(const QString &message);
     bool Sstatus;
@@ -36,6 +45,8 @@ private:
     QTcpSocket *socket;
     quint16 tailleMessage;
     QString messageRecu;
+
+    QList<QString> morp;
 
 };
 

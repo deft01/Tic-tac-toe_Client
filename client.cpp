@@ -11,11 +11,23 @@ client::client()
     label->setMovie(movie);
     movie->start();
 
+    morp = QList<QString>();
+
     connect(socket,SIGNAL(readyRead()),this,SLOT(donneeRecue()));
     connect(socket,SIGNAL(connected()),this,SLOT(connecte()));
     connect(socket,SIGNAL(disconnected()),this,SLOT(deconnecte()));
     connect(socket,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(erreurSocket(QAbstractSocket::SocketError)));
     connect(socket,SIGNAL(aboutToClose()),this,SLOT(gonnaclose()));
+    connect(play11,SIGNAL(clicked(bool)),this,SLOT(on_play11()));
+    connect(play12,SIGNAL(clicked(bool)),this,SLOT(on_play12()));
+    connect(play13,SIGNAL(clicked(bool)),this,SLOT(on_play13()));
+    connect(play21,SIGNAL(clicked(bool)),this,SLOT(on_play21()));
+    connect(play22,SIGNAL(clicked(bool)),this,SLOT(on_play22()));
+    connect(play23,SIGNAL(clicked(bool)),this,SLOT(on_play23()));
+    connect(play31,SIGNAL(clicked(bool)),this,SLOT(on_play31()));
+    connect(play32,SIGNAL(clicked(bool)),this,SLOT(on_play32()));
+    connect(play33,SIGNAL(clicked(bool)),this,SLOT(on_play33()));
+
 
     connect(pushButtonAuth,SIGNAL(clicked()),this,SLOT(boutonAuth()));
     //connect(pushButton_2Ok,SIGNAL(clicked()),this,SLOT(boutonConnexion()));
@@ -58,12 +70,71 @@ void client::donneeRecue()
 
         textEditText->append(messageRecu);
 
+        if(messageRecu.contains("_")){
+            morp.push_back(" ");
+        }
+
+        if(messageRecu == ("O ")){
+            morp.push_back("O");
+        }
+
+        if(messageRecu.contains("X")){
+            morp.push_back("X");
+        }
+
+        if(messageRecu.contains("+++")){
+            play11->setText(morp[0]);
+            play12->setText(morp[1]);
+            play13->setText(morp[2]);
+            play21->setText(morp[3]);
+            play22->setText(morp[4]);
+            play23->setText(morp[5]);
+            play31->setText(morp[6]);
+            play32->setText(morp[7]);
+            play33->setText(morp[8]);
+            morp.clear();
+        }
+
+
         tailleMessage = 0;
     }
-
-
 }
 
+void client::on_play11(){
+    envoyerServer("/play 1,1");
+}
+
+void client::on_play12(){
+    envoyerServer("/play 1,2");
+}
+
+void client::on_play13(){
+    envoyerServer("/play 1,3");
+}
+
+void client::on_play21(){
+    envoyerServer("/play 2,1");
+}
+
+void client::on_play22(){
+    envoyerServer("/play 2,2");
+}
+
+void client::on_play23(){
+    envoyerServer("/play 2,3");
+}
+
+void client::on_play31(){
+    envoyerServer("/play 3,1");
+}
+
+void client::on_play32(){
+    envoyerServer("/play 3,2");
+}
+
+void client::on_play33(){
+    envoyerServer("/play 3,3");
+}
 
 void client::on_pushButtonSend_clicked()
 {
