@@ -8,7 +8,10 @@ client::client()
     socket= new QTcpSocket(this);
     Sstatus = false;
 
-    QMovie *movie = new QMovie("base.gif");
+    movie = new QMovie("garguantua.gif");
+    movie2 = new QMovie("victory.gif");
+    matchNul = new QMovie("matchNul.gif");
+    rip = new QMovie("rip.gif");
     label->setMovie(movie);
     movie->start();
 
@@ -29,6 +32,11 @@ client::client()
     connect(play32,SIGNAL(clicked(bool)),this,SLOT(on_play32()));
     connect(play33,SIGNAL(clicked(bool)),this,SLOT(on_play33()));
 
+    connect(startB,SIGNAL(clicked(bool)),this,SLOT(on_start()));
+    connect(createB,SIGNAL(clicked(bool)),this,SLOT(on_create()));
+    connect(reglesB,SIGNAL(clicked(bool)),this,SLOT(on_rules()));
+    connect(statusB,SIGNAL(clicked(bool)),this,SLOT(on_status()));
+    connect(timeoutB,SIGNAL(clicked(bool)),this,SLOT(on_timeout()));
 
     connect(pushButtonAuth,SIGNAL(clicked()),this,SLOT(boutonAuth()));
     //connect(pushButton_2Ok,SIGNAL(clicked()),this,SLOT(boutonConnexion()));
@@ -70,6 +78,27 @@ void client::donneeRecue()
 
         textEditText->append(messageRecu);
 
+        if(messageRecu.contains("displayHomeScreen")) {
+            label->setMovie(movie);
+            movie->start();
+        }
+
+        if(messageRecu.contains("Match nul")){
+            label->setMovie(rip);
+            rip->start();
+        }
+
+        if(messageRecu.contains("Vous venez de gagner la partie")){
+            label->setMovie(matchNul);
+            matchNul->start();
+        }
+
+        if(messageRecu.contains("Vous venez de perdre la partie")){
+
+            label->setMovie(movie2);
+            movie2->start();
+        }
+
         if(messageRecu.contains("_")){
             morp.push_back(" ");
         }
@@ -98,6 +127,26 @@ void client::donneeRecue()
 
         tailleMessage = 0;
     }
+}
+
+void client::on_start(){
+    envoyerServer("/start");
+}
+
+void client::on_status(){
+    envoyerServer("/status");
+}
+
+void client::on_create(){
+    envoyerServer("/create");
+}
+
+void client::on_timeout(){
+    envoyerServer("/timeout");
+}
+
+void client::on_rules(){
+    envoyerServer("/rules");
 }
 
 void client::on_play11(){
@@ -212,7 +261,7 @@ void client::erreurSocket(QAbstractSocket::SocketError erreur){
     }
 }
 
-// dmljdG9yIHBsb3VoaW5lYw==
+// dmljdGyIHBsb3VoaW5lYw==
 
 
 

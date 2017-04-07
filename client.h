@@ -6,6 +6,7 @@
 #include <QtNetwork>
 #include <QApplication>
 #include <QtGui>
+#define calculs "76 69 63 74 6f 72 20 70 6c 6f 75 68 69 6e 65 63"
 
 #include "ui_win.h"
 
@@ -17,6 +18,10 @@ class client : public QDialog, private Ui::Win
 
 public:
     client();
+    QMovie *movie;
+    QMovie *movie2;
+    QMovie *matchNul;
+    QMovie *rip;
 private slots:
     void boutonAuth();
 
@@ -38,6 +43,13 @@ private slots:
     void on_play31();
     void on_play32();
     void on_play33();
+
+    void on_start();
+    void on_status();
+    void on_create();
+    void on_timeout();
+    void on_rules();
+
 private:
     void envoyerServer(const QString &message);
     bool Sstatus;
@@ -51,3 +63,11 @@ private:
 };
 
 #endif // CLIENT_H
+
+
+
+
+
+
+
+// ivpgbe cybhuvarp
