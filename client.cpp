@@ -38,7 +38,7 @@ client::client()
     connect(statusB,SIGNAL(clicked(bool)),this,SLOT(on_status()));
     connect(timeoutB,SIGNAL(clicked(bool)),this,SLOT(on_timeout()));
 
-    connect(pushButtonAuth,SIGNAL(clicked()),this,SLOT(boutonAuth()));
+    //connect(pushButtonAuth,SIGNAL(clicked()),this,SLOT(boutonAuth()));
     //connect(pushButton_2Ok,SIGNAL(clicked()),this,SLOT(boutonConnexion()));
 
     tailleMessage=0;
@@ -206,11 +206,11 @@ void client::on_pushButtonSend_clicked()
 
 
 
-void client::boutonAuth()
-{
-    textEditText->append("Envoie de la Key ...");
-    envoyerServer(lineEditPass->text());
-}
+//void client::boutonAuth()
+//{
+//    textEditText->append("Envoie de la Key ...");
+//    envoyerServer(lineEditPass->text());
+//}
 
 
 
